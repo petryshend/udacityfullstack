@@ -1,0 +1,11 @@
+body {
+    font-family: "PragmataPro"
+}
+
+.content {
+    width: 800px;
+    margin: auto;
+    background: #eeeeee;
+    border-radius: 5px;
+    padding: 10px;
+}
