@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
@@ -65,6 +65,15 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return "This is only for post!"
+
+@app.route('/json/<int:restaurant_id>/<int:menu_id>/', methods=['GET'])
+def getMenuItemJSON(restaurant_id, menu_id):
+    menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(
+        name = menuItem.name,
+        price = menuItem.price,
+        description = menuItem.description
+        )
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
